@@ -2,7 +2,7 @@ import express, { request } from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 // import { Book } from "./models/bookModel.js";
-import booksRoute from './routes/booksRoute.js';
+import passwordsRoute from './routes/passwordsRoute.js';
 import cors from "cors"
 
 
@@ -29,7 +29,7 @@ app.get('/', (request, response) => {
     return response.status(234).send('WElcome to MERN')
 });
 
-app.use('/books', booksRoute);
+app.use('/passwords', passwordsRoute);
 
 mongoose
   .connect(mongoDBURL)

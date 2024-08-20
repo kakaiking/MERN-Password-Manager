@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 
-const bookSchema = mongoose.Schema(
+const passwordSchema = mongoose.Schema(
     {
-        title: {
+        website: {
             type: String,
             required: true,
         },
-        author: {
+        email: {
             type: String,
             required: true,
         },
-        publishYear: {
+        password: {
             type: String,
             required: true,
         },
@@ -20,4 +20,4 @@ const bookSchema = mongoose.Schema(
     }
 );
 
-export const Book = mongoose.model('Cat', bookSchema);
+export const Password = mongoose.model('Cat', passwordSchema);

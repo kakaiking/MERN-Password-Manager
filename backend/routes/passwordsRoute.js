@@ -1,5 +1,5 @@
 import express from "express";
-import { Book } from "../models/bookModel.js";
+import { Password } from "../models/passwordModel.js";
 
 const router = express.Router();
 
@@ -7,21 +7,21 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         if (
-            !request.body.title || !request.body.author || !request.body.publishYear
+            !request.body.website || !request.body.email || !request.body.password
         ) {
             return response.status(400).send({
                 message: 'send all required fields: title, author, publishYear'
             })
         }
 
-        const newBook = {
-            title: request.body.title,
-            author: request.body.author,
-            publishYear: request.body.publishYear
+        const newPassword = {
+            website: request.body.website,
+            email: request.body.email,
+            password: request.body.password
         }
 
-        const book = await Book.create(newBook)
-        return response.status(201).send(book)
+        const password = await Password.create(newPassword)
+        return response.status(201).send(password)
 
     } catch (error) {
         console.log(error);
@@ -32,10 +32,10 @@ router.post('/', async (request, response) => {
 //route to Get All Books From Database
 router.get('/', async (request, response) => {
     try {
-        const books = await Book.find({})
+        const passwords = await Password.find({})
         return response.status(200).json({
-            count: books.length,
-            data: books
+            count: passwords.length,
+            data: passwords
         });
     } catch (error) {
         console.log(error);
@@ -47,8 +47,8 @@ router.get('/', async (request, response) => {
 router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        const book = await Book.findById(id)
-        return response.status(200).json(book);
+        const password = await Password.findById(id)
+        return response.status(200).json(password);
     } catch (error) {
         console.log(error);
         response.status(500).send({ message: error.message })
@@ -59,20 +59,20 @@ router.get('/:id', async (request, response) => {
 router.put('/:id', async (request, response) => {
     try {
         if (
-            !request.body.title || !request.body.author || !request.body.publishYear
+            !request.body.website || !request.body.email || !request.body.password
         ) {
             return response.status(400).send({
-                message: 'Send all required fields: title, arthor, publishYear'
+                message: 'Send all required fields: website URL, email account registered and password'
             })
         }
         const { id } = request.params;
 
-        const result = await Book.findByIdAndUpdate(id, request.body);
+        const result = await Password.findByIdAndUpdate(id, request.body);
 
         if (!result) {
-            return response.status(400).json({ message: 'Book not found' })
+            return response.status(400).json({ message: 'Password not found' })
         }
-        return response.status(200).send({ message: 'Book updated successfully' })
+        return response.status(200).send({ message: 'Password updated successfully' })
 
     } catch (error) {
         console.log(error);
@@ -85,13 +85,13 @@ router.delete('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const result = await Book.findByIdAndDelete(id);
+        const result = await Password.findByIdAndDelete(id);
 
         if (!result) {
-            return response.status(404).json({ message: 'Book not found' })
+            return response.status(404).json({ message: 'Password not found' })
         }
 
-        return response.status(200).send({ message: 'Book deleted successfully' });
+        return response.status(200).send({ message: 'Password deleted successfully' });
 
     } catch (error) {
         console.log(error)
