@@ -43,7 +43,7 @@ const Home = () => {
         </button>
       </div>
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl my-8">Password List </h1>
+        <h1 className="text-3xl my-8">Saved Passwords: </h1>
         <Link to='/passwords/create'>
           <MdOutlineAddBox className='text-sky-800 text-4xl' />
         </Link>
